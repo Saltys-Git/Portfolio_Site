@@ -1,0 +1,125 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <style>
+    .container {
+      width: 30rem;
+      height: 20rem;
+      box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);
+      border-radius: 5px;
+      position: relative;
+      z-index: 1;
+      background: inherit;
+      overflow: hidden;
+    }
+
+    .container:before {
+      content: "";
+      position: absolute;
+      background: inherit;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      box-shadow: inset 0 0 2000px rgba(214, 214, 214, 0.377);
+      filter: blur(10px);
+      margin: -20px;
+    }
+  </style>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway+Dots&display=swap" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <title>Portfolio of Saidur Rahman Siam</title>
+</head>
+
+<body
+  style="background-image:url( '/static/bg.jpg' );background-repeat: no-repeat;background-attachment: fixed;background-size: cover;">
+  <div class="mt-5"
+    style="border-radius: 10px 10px 0px 0px; width:60%;height:40px; background-image:linear-gradient(rgb(117, 115, 102),rgb(71, 70, 64), rgb(51, 50, 48)); margin: 0 auto; line-height:40px; padding-left:20px; font-weight:bold; color:whitesmoke; ">
+    Portfolio@Saidur-Rahman-Siam: ~
+    <img src="{% static 'buttons_close.png' %}" class="btn_close" width="23"
+      style="float: right; transform: translateY(40%); margin-right: 1%;">
+    <img src="{% static 'buttons_max.png' %}" id="button_max_min" class="btn_max_min" width="23"
+      style="float: right; transform: translateY(40%); margin-right: 1%;">
+  </div>
+  <div class="container"
+    style="width:60%;height:80vh; background:inherit;box-shadow: 0 0 5px 0 ;  backdrop-filter: blur(100px); margin: 0 auto;padding:10px; border-radius: 0px 0px 10px 10px;">
+    <h2 align="center" style="font-family: 'Raleway Dots', cursive; color: #d3f2de;">>Welcome<</h2>
+        <span style="color: #c6b9f4;">{{page_body|linebreaksbr}}</span><br>
+        <form method="POST">
+          {% csrf_token %}
+          <p style="font-size: 16px;color: #fafafa;">Type one of the commands shown below to view that section.</p>
+          <p style="font-size: 16px; word-spacing: 30px; line-gap-override: -10%;color: #ffffff;">Home About Skills
+            Projects Contact</p>
+          <font color="whitesmoke">portfolio@saidur-rahman-siam:~$ </font><input id="input_area" type="text"
+            name="input_var" style="width:50%; outline:none; background:none;border:none; color: #f8f8f8;">
+        </form>
+  </div>
+
+
+  <!-- Optional JavaScript; choose one of the two! -->
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+  <script language="javascript" type="text/javascript">
+    let closeBtn = document.querySelector('.btn_close');
+    let maximizeBtn = document.querySelector('.btn_max_min');
+    let minimizeBtn = document.querySelector('.btn_min_max');
+    var elem = document.documentElement;
+
+
+    closeBtn.addEventListener('click', (e) => {
+      window.open("about:blank", "_self");
+      window.close();
+    });
+
+    document.addEventListener("fullscreenchange", function () {
+      if (window.innerHeight != screen.height) {
+        document.getElementById("button_max_min").src = "{% static 'buttons_max.png' %}";
+      } else {
+        document.getElementById("button_max_min").src = "{% static 'buttons_min.png' %}";
+      }
+    });
+
+    maximizeBtn.addEventListener('click', (e) => {
+      if (window.innerHeight != screen.height) {
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+          elem.msRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari */
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+          document.msExitFullscreen();
+        }
+      }
+    });
+
+  </script>
+</body>
+
+</html>
